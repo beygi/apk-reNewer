@@ -9,5 +9,5 @@ replace all of your apk files with newer versions
 
 ## Usage
 
-* copy all of your apks in apks directory
+* copy all of your apk files in apks directory
 * run nodejs index.js
