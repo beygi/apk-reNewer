@@ -4,8 +4,8 @@ apk-reNewer
 replace all of your apk files with newer versions
 
 ## Installation
-	* clone this repository
-	* run npm install
+* clone this repository
+* run npm install
 
 ## Usage
 
