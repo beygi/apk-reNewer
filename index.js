@@ -12,7 +12,6 @@ refresh = function() {
     var apks = fs.readdirSync('apks');
     //async loop
     async.eachSeries(apks, function(apk, cback) {
-        //console.log(apk);
         try {
             //check version
             var reader = ApkReader.readFile('apks/' + apk);
@@ -22,15 +21,23 @@ refresh = function() {
             //get new link and md5
             httpGET("http://apps.evozi.com/apk-downloader/?id=" + name, function(data) {
                 var postData = {};
-                var re = /,  t: (.*),.*bcaefabaaafaaef/;
+				//find token name
+				//console.log(data);
+				//console.log(re.exec(data));
+				//console.log(data);
+				var re = /,  t:.*?,(.*)\: ?/;
+				var tokanName = re.exec(data)[1].split(':')[0].trim();
+				//console.log(tokanName);
+				re = new RegExp(",  t: (.*),.*"+tokanName);
                 var found = re.exec(data);
+				//console.log(data);
                 postData.t = found[1];
-                re = /bcaefabaaafaaef:(.*),/;
+				re = new RegExp(tokanName+":(.*),");
                 found = re.exec(data);
                 var token = found[1].trim();
-                re = RegExp("var " + token + " = '(.*)'");
+                re = new RegExp("var " + token + " = '(.*)'");
                 found = re.exec(data);
-                postData.bcaefabaaafaaef = found[1];
+                postData[tokanName] = found[1];
                 postData.packagename = name;
                 postData.fetch = false;
                 //console.log(postData);
