@@ -43,27 +43,25 @@ refresh = function() {
                             cback();
                         } else {
                             //console.log(remote);
-                            process.stdout.write('[updating] ..... ' + apk + ',fileSize :'+remote.filesize+'... ');
+                            process.stdout.write('[updating] ..... ' + apk + ',fileSize :' + remote.filesize + '... ');
                             //TIME TO DOWNLOAD
-                            downloadApk(remote.url,function(){
-                            //check md5
-                            fs.readFile('tmpApk.apk', function(err, buf) {
-                              if(remote.md5==md5(buf))
-                              {
-                                //delete old file
-                                fs.unlinkSync('apks/'+apk);
-                                //move new file
-                                fs.renameSync('tmpApk.apk', 'apks/'+name+'.apk');
-                                console.log('DONE');
-                                cback();
-                              }else
-                              {
-                              console.log('[error : md5 Mismatch] ..... ' + apk);
-                              fs.unlinkSync('tmpApk.apk');
-                              cback();
-                              }
+                            downloadApk(remote.url, function() {
+                                //check md5
+                                fs.readFile('tmpApk.apk', function(err, buf) {
+                                    if (remote.md5 == md5(buf)) {
+                                        //delete old file
+                                        fs.unlinkSync('apks/' + apk);
+                                        //move new file
+                                        fs.renameSync('tmpApk.apk', 'apks/' + name + '.apk');
+                                        console.log('DONE');
+                                        cback();
+                                    } else {
+                                        console.log('[error : md5 Mismatch] ..... ' + apk);
+                                        fs.unlinkSync('tmpApk.apk');
+                                        cback();
+                                    }
 
-                            });
+                                });
 
                             });
 
@@ -186,9 +184,9 @@ downloadApk = function(url, callback) {
     var fullname = fname;
 
     var ws = fs.createWriteStream(fullname);
-	   ws.on('close', function () {
-		callback();
-	    });
-	   request(url).pipe(ws);
+    ws.on('close', function() {
+        callback();
+    });
+    request(url).pipe(ws);
 };
 refresh();
