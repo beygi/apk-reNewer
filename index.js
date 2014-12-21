@@ -67,7 +67,7 @@ refresh = function() {
 
                         }
                     } else {
-                        console.log('[error (limit exceeded) ] ..... ' + apk);
+                        console.log('[error (limit exceeded or package not found) ] ..... ' + apk);
                         cback();
                     }
                 }, function() {
