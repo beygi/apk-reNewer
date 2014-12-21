@@ -67,7 +67,7 @@ refresh = function() {
 
                         }
                     } else {
-                        console.log('[error (limit exceede) ] ..... ' + apk);
+                        console.log('[error (limit exceeded) ] ..... ' + apk);
                         cback();
                     }
                 }, function() {
