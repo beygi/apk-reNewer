@@ -12,6 +12,8 @@ refresh = function() {
     var apks = fs.readdirSync('apks');
     //async loop
     async.eachSeries(apks, function(apk, cback) {
+		if (apk !='.gitignore') {
+			//code
         try {
             //check version
             var reader = ApkReader.readFile('apks/' + apk);
@@ -90,6 +92,11 @@ refresh = function() {
             console.log('[invalid] ..... ' + apk);
             cback();
         }
+		}else
+		{
+			cback();
+		}
+
     }, function(err) {
         console.log('[all done]');
         // if any of the saves produced an error, err would equal that error
